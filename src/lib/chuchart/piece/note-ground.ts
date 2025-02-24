@@ -1,4 +1,5 @@
 import { getTexture } from "../texture";
+import { Chart } from "../chart";
 
 export class GroundNoteHandler {
     constructor(gl: WebGL2RenderingContext) {
@@ -22,25 +23,17 @@ export class GroundNoteHandler {
 
         this.texture = await getTexture(this.gl, "/chu/tex/note.png");
     }
-    draw() {
+    draw(chart: Chart) {
         if (!this.buffer || !this.gl || !this.program) return;
 
-        // Assign note data
-        // TODO: set the size to be the number of notes we're drawing
-        const noteData: Float32Array = new Float32Array(400);
-        // TODO: pass in chart data and actually read it
-        /*
-            x (0): measure offset
-            y (1): horizontal offset (0 to 15 i think)
-            z (2): width
-            w (3): type (1 for red, 2 for golden)
-        */
-        for (let i = 0; 400 > i; i++) {
-            if (i % 4 != 3) {
-                noteData[i] = Math.floor(Math.random() * 16);
-            } else
-                noteData[i] = Math.floor(Math.random() * 2) + 1;
-        }
+        const notes = chart.access("note");
+        const noteData: Float32Array = new Float32Array(notes.length * 4);
+        notes.forEach((note, idx) => {
+            noteData[(idx * 4) + 0] = note.offset;
+            noteData[(idx * 4) + 1] = note.horizontal;
+            noteData[(idx * 4) + 2] = note.width ?? 2;
+            noteData[(idx * 4) + 3] = note.subtype ?? 0;
+        });
         this.gl.uniform4fv(this.gl.getUniformLocation(this.program, "datas"), noteData);
 
         // Assign VA pointers
@@ -55,7 +48,7 @@ export class GroundNoteHandler {
 
         // Draw objects
         // TODO: set the size to be the number of notes we're drawing
-        this.gl.drawArraysInstanced(this.gl.TRIANGLE_STRIP, 0, 4, 2);
+        this.gl.drawArraysInstanced(this.gl.TRIANGLE_STRIP, 0, 4, notes.length);
     };
 
     program: WebGLProgram | undefined;

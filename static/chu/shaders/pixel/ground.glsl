@@ -24,8 +24,8 @@ void main() {
 
     vec4 baseColor = vec4(0.0, 0.0, 0.0, alpha);
 
-    if (isOnLineY(0.03) && !(column == 0.0 || column == 17.0) && !(isOnLineX(1.0) || isOnLineX(17.0))) {
-        float amount = 1.0 - pow(abs(getYAmountThreshold(0.03)), 1.25);
+    if (isOnLineY(0.025) && !(column == 0.0 || column == 17.0) && !(isOnLineX(1.0) || isOnLineX(17.0))) {
+        float amount = 1.0 - pow(abs(getYAmountThreshold(0.025)), 1.25);
         float dotted = amount < 0.75 ? sin(amount * 25.0) < 0.0 ? 1.0 : 0.0 : 0.0; // for the dashes
         color = mix(mix(vec4(1.0, 0.85 + (amount * 0.15), (amount * 1.5) - 0.5, 1.0), baseColor, (1.0 - amount)), baseColor, dotted);
     } else 
