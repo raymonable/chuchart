@@ -20,11 +20,11 @@ float getYAmountThreshold(float pos) {
 
 void main() {
     float column = floor(uv.x * 18.0);
-    float alpha = column == 0.0 || column == 17.0 ? 0.75 : 0.7;
+    float alpha = column == 0.0 || column == 17.0 ? 0.9 : 0.8;
 
     vec4 baseColor = vec4(0.0, 0.0, 0.0, alpha);
 
-    if (isOnLineY(0.03) && alpha == 0.7 && !(isOnLineX(1.0) || isOnLineX(17.0))) {
+    if (isOnLineY(0.03) && !(column == 0.0 || column == 17.0) && !(isOnLineX(1.0) || isOnLineX(17.0))) {
         float amount = 1.0 - pow(abs(getYAmountThreshold(0.03)), 1.25);
         float dotted = amount < 0.75 ? sin(amount * 25.0) < 0.0 ? 1.0 : 0.0 : 0.0; // for the dashes
         color = mix(mix(vec4(1.0, 0.85 + (amount * 0.15), (amount * 1.5) - 0.5, 1.0), baseColor, (1.0 - amount)), baseColor, dotted);

@@ -10,7 +10,8 @@ Do not get any ideas. This is NOT in any way related to AquaDX... I swear. :wink
 
 ### Now
 
-- Add gold notes (asset)
+- ~~Add gold notes (asset)~~
+    - Post processing is still needed. Either use a bloom or a mesh? ![Image](https://github.com/user-attachments/assets/20da65c5-173a-4cb0-9cbd-bd362c6861ea)
 - Add airs (handler, shader)
 - Add flicks (handler, assets, shader)
 - Add effects (handler, assets, shader)

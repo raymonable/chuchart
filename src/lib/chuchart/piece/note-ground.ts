@@ -29,11 +29,17 @@ export class GroundNoteHandler {
         // TODO: set the size to be the number of notes we're drawing
         const noteData: Float32Array = new Float32Array(400);
         // TODO: pass in chart data and actually read it
+        /*
+            x (0): measure offset
+            y (1): horizontal offset (0 to 15 i think)
+            z (2): width
+            w (3): type (1 for red, 2 for golden)
+        */
         for (let i = 0; 400 > i; i++) {
             if (i % 4 != 3) {
                 noteData[i] = Math.floor(Math.random() * 16);
             } else
-                noteData[i] = 1;
+                noteData[i] = Math.floor(Math.random() * 2) + 1;
         }
         this.gl.uniform4fv(this.gl.getUniformLocation(this.program, "datas"), noteData);
 
